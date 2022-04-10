@@ -119,11 +119,13 @@ namespace Lab_3._1
         {
             _arrayLenght = Convert.ToInt32(textBox1.Text);
             _complexity = Convert.ToInt32(textBox2.Text);
+            int step = Convert.ToInt32(textBox6.Text);
+            int amountOfThreads = Convert.ToInt32(textBox5.Text);
 
             var objChart = chart1.ChartAreas[0];
             objChart.AxisX.IntervalType = DateTimeIntervalType.Number;
             objChart.AxisX.Minimum = 0;
-            objChart.AxisX.Maximum = 30;
+            objChart.AxisX.Maximum = amountOfThreads;
 
             objChart.AxisY.IntervalType = DateTimeIntervalType.Number;
             objChart.AxisY.Minimum = 0;
@@ -144,7 +146,7 @@ namespace Lab_3._1
             //Thread.Sleep(10000);
             chart1.Series[0].Points.AddXY(0, sw.Elapsed.TotalSeconds);
             chart1.Series[0].Points.AddXY(30, sw.Elapsed.TotalSeconds);
-            for (int j = 2; j <= 30; j += 2)
+            for (int j = 2; j <= amountOfThreads; j += step)
             {
                 GetThreadsWorkTime(j, _arrayLenght, -1, _complexity);
                 Thread.Sleep(1000);
@@ -155,7 +157,7 @@ namespace Lab_3._1
         {
             _arrayLenght = Convert.ToInt32(textBox3.Text);
             _complexity = Convert.ToInt32(textBox4.Text);
-
+            int step = Convert.ToInt32(textBox7.Text);
             var objChart = chart2.ChartAreas[0];
             objChart.AxisX.IntervalType = DateTimeIntervalType.Number;
             objChart.AxisX.Minimum = 0;
@@ -166,29 +168,29 @@ namespace Lab_3._1
             objChart.AxisY.Maximum = 1;
 
             chart2.Series.Clear();
-            chart2.Series.Add("Time from K - 1 threads").Color = Color.BlueViolet;
+            chart2.Series.Add("1 threads").Color = Color.BlueViolet;
             chart2.Series[0].ChartType = SeriesChartType.Line;
-            chart2.Series.Add("Time from K - 4 threads").Color = Color.Blue;
+            chart2.Series.Add("5 threads").Color = Color.Blue;
             chart2.Series[1].ChartType = SeriesChartType.Line;
-            chart2.Series.Add("Time from K - 12 threads").Color = Color.DarkCyan;
+            chart2.Series.Add("15 threads").Color = Color.DarkCyan;
             chart2.Series[2].ChartType = SeriesChartType.Line;
-            chart2.Series.Add("Time from K - 24 threads").Color = Color.Green;
+            chart2.Series.Add("25 threads").Color = Color.Green;
             chart2.Series[3].ChartType = SeriesChartType.Line;
-            chart2.Series.Add("Time from K - 50 threads").Color = Color.Orange;
+            chart2.Series.Add("30 threads").Color = Color.Orange;
             chart2.Series[4].ChartType = SeriesChartType.Line;
 
-            for (int j = 100; j <= _complexity; j+=100)
+            for (int j = 0; j <= _complexity; j+=step)
             {
                 GetThreadsWorkTime(1, _arrayLenght, -1, j, 0);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 GetThreadsWorkTime(5, _arrayLenght, -1, j, 1);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 GetThreadsWorkTime(15, _arrayLenght, -1, j, 2);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 GetThreadsWorkTime(25, _arrayLenght, -1, j, 3);
-                Thread.Sleep(100);
+                Thread.Sleep(500);
                 GetThreadsWorkTime(30, _arrayLenght, -1, j, 4);
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
         }
     }
